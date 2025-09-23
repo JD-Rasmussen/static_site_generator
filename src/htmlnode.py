@@ -39,3 +39,8 @@ class LeafNode(HTMLNode):
         
         attrs = self.props_to_html()
         return f'<{self.tag}{attrs}>{self.value}</{self.tag}>'
+
+
+
+class ParentNode(HTMLNode):
+    
