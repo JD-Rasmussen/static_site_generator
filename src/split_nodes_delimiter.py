@@ -13,7 +13,8 @@ from src.textnode_to_htmlnode import text_node_to_html_node
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
         
-
+    for node in old_nodes:
+        
 
 
 
