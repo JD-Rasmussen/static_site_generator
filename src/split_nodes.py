@@ -3,7 +3,7 @@
 from src.htmlnode import HTMLNode, LeafNode, ParentNode
 from src.textnode import TextNode, TextType
 from src.textnode_to_htmlnode import text_node_to_html_node
-
+from src.extract_markdowns import extract_markdown_images, extract_markdown_links
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
@@ -21,20 +21,22 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             result.append(node)
     return result
 
+
 def split_nodes_link(old_nodes):
     result = []
     for node in old_nodes:
-        if node.text_type == TextType.LINK:
-            result.append(node.text)
-            result.append(node.url)
+        if node.text_type == TextType.TEXT:
+        parts = node.text.split(extract_markdown_links(text))
+        if len(parts)% 2 == 0: 
         else:
             result.append(node)
     return result
 
+
 def split_nodes_image(old_nodes):
     result = []
     for node in old_nodes:
-        if node.text_type == TextType.IMAGE:
+        
 
 
 
