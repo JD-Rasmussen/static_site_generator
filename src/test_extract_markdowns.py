@@ -1,6 +1,6 @@
 import unittest
 
-from src.extract_markdown_images import extract_markdown_images, extract_markdown_links
+from src.extract_markdowns import extract_markdown_images, extract_markdown_links
 
 class TestSplit_node_delimiter(unittest.TestCase):
 
