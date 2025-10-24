@@ -27,13 +27,16 @@ def split_nodes_link(old_nodes):
     for node in old_nodes:
         if node.text_type == TextType.TEXT:
             extracted_parts = extract_markdown_links(node.text)
+            current_raw_text = node.text
             for link_tuple in extracted_parts:
-                parts[i] = link_tuple[].split(link_tuple[0])
-        if len(parts)% 2 == 0: 
-            raise Exception("missing end delimiter")
+                full_link = f"[{link_tuple[0]}]({link_tuple[1]})"
+                parts = current_raw_text.split(full_link, maxsplits=1)
+                text_before_link = parts[0]
+                test_after_link = parts[1]
+                current_raw_text = text_after_link
         for i, part in enumerate(parts):
             if part == "": continue
-            chosen_type = text_type if i % 2 == 1 else TextType.TEXT
+            chosen_type = TextType.LINK if i % 2 == 1 else TextType.TEXT
             result.append(TextNode(part, chosen_type))
         else:
             result.append(node)
