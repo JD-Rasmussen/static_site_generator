@@ -32,14 +32,24 @@ def split_nodes_link(old_nodes):
                 full_link = f"[{link_tuple[0]}]({link_tuple[1]})"
                 parts = current_raw_text.split(full_link, maxsplits=1)
                 text_before_link = parts[0]
-                test_after_link = parts[1]
+                text_after_link = parts[1]
                 current_raw_text = text_after_link
-        for i, part in enumerate(parts):
-            if part == "": continue
-            chosen_type = TextType.LINK if i % 2 == 1 else TextType.TEXT
-            result.append(TextNode(part, chosen_type))
+                if text_before_link != "": 
+                    new_node = TextNode(text_before_link, TextType.TEXT)
+                    result.append(new_node)
+                if full_link != "":
+                    new_node = TextNode(link_tuple[0], TextType.LINK, link_tuple[1]) 
+                    result.append(new_node)
+            if current_raw_text != "": 
+                new_node = TextNode(current_raw_text, TextType.TEXT)
+                result.append(new_node)
+            #for i, part in enumerate(parts):
+            #    if part == "": continue
+            #    chosen_type = TextType.LINK if i % 2 == 1 else TextType.TEXT
+            #    result.append(TextNode(part, chosen_type))
         else:
             result.append(node)
+
     return result
 
 
