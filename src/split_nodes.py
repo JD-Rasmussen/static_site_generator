@@ -43,10 +43,6 @@ def split_nodes_link(old_nodes):
             if current_raw_text != "": 
                 new_node = TextNode(current_raw_text, TextType.TEXT)
                 result.append(new_node)
-            #for i, part in enumerate(parts):
-            #    if part == "": continue
-            #    chosen_type = TextType.LINK if i % 2 == 1 else TextType.TEXT
-            #    result.append(TextNode(part, chosen_type))
         else:
             result.append(node)
 
@@ -56,6 +52,26 @@ def split_nodes_link(old_nodes):
 def split_nodes_image(old_nodes):
     result = []
     for node in old_nodes:
+        if node.text_type == TextType.TEXT:
+            extracted_parts = extract_markdown_image(node.text)
+            current_raw_text = node.text
+            for image_tuple in extracted_parts:
+                full_image = f"[{image_tuple[0]}]({image_tuple[1]})"
+                parts = current_raw_text.split(full_image, maxsplits=1)
+                text_before_image = parts[0]
+                text_after_image = parts[1]
+                current_raw_text = text_after_image
+                if text_before_image != "": 
+                    new_node = TextNode(text_before_image, TextType.TEXT)
+                    result.append(new_node)
+                if full_image != "":
+                    new_node = TextNode(image_tuple[0], TextType.IMAGE, image_tuple[1]) 
+                    result.append(new_node)
+            if current_raw_text != "": 
+                new_node = TextNode(current_raw_text, TextType.TEXT)
+                result.append(new_node)
+        else:
+            result.append(node)
         
 
 
