@@ -30,7 +30,7 @@ def split_nodes_link(old_nodes):
             current_raw_text = node.text
             for link_tuple in extracted_parts:
                 full_link = f"[{link_tuple[0]}]({link_tuple[1]})"
-                parts = current_raw_text.split(full_link, maxsplits=1)
+                parts = current_raw_text.split(full_link, maxsplit=1)
                 text_before_link = parts[0]
                 text_after_link = parts[1]
                 current_raw_text = text_after_link
@@ -53,11 +53,11 @@ def split_nodes_image(old_nodes):
     result = []
     for node in old_nodes:
         if node.text_type == TextType.TEXT:
-            extracted_parts = extract_markdown_image(node.text)
+            extracted_parts = extract_markdown_images(node.text)
             current_raw_text = node.text
             for image_tuple in extracted_parts:
-                full_image = f"[{image_tuple[0]}]({image_tuple[1]})"
-                parts = current_raw_text.split(full_image, maxsplits=1)
+                full_image = f"![{image_tuple[0]}]({image_tuple[1]})"
+                parts = current_raw_text.split(full_image, maxsplit=1)
                 text_before_image = parts[0]
                 text_after_image = parts[1]
                 current_raw_text = text_after_image
@@ -72,6 +72,7 @@ def split_nodes_image(old_nodes):
                 result.append(new_node)
         else:
             result.append(node)
+    return result
         
 
 
