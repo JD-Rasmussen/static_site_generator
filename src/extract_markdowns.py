@@ -15,7 +15,7 @@ def extract_markdown_links(text):
 
 def markdown_to_blocks(markdown):
 
-    result = [part.strip() for part in markdown.split("\n\n")]
+    result = [part.strip() for part in markdown.split("\n\n") if part.strip()]
 
     return result
 
