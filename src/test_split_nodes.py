@@ -7,13 +7,13 @@ class TestSplit_node_delimiter(unittest.TestCase):
 
 
     def test_No_Delimiter(self):
-            node = TextNode("This is a text node", TextType.TEXT)
-            split_node = split_nodes_delimiter([node], "`", TextType.CODE)
-            self.assertEqual(split_node[0], node)
-            self.assertEqual(len(split_node),1)
-            self.assertEqual(split_node[0].text, "This is a text node")
-            self.assertEqual(split_node[0].text_type, TextType.TEXT)
-    
+        node = TextNode("This is a text node", TextType.TEXT)
+        split_node = split_nodes_delimiter([node], "`", TextType.CODE)
+        self.assertEqual(split_node[0], node)
+        self.assertEqual(len(split_node),1)
+        self.assertEqual(split_node[0].text, "This is a text node")
+        self.assertEqual(split_node[0].text_type, TextType.TEXT)
+
     def test_one_Delimiter(self):
         node = TextNode("This is a **bold** text node", TextType.TEXT)
         split_node = split_nodes_delimiter([node], "**", TextType.BOLD)
