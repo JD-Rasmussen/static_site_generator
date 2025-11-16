@@ -35,7 +35,22 @@ def markdown_to_html_node(markdown):
             result.append(blockquote_node)
 
         elif nodetype == BlockType.UNORDERED_LIST:
-#implement
+            lines = part.splitlines()
+            li_nodes = []
+            for ln  in lines:
+                ln = ln.rstrip()
+                if not ln.strip():
+                    continue
+                ln = strip_prefix_once(ln, "- ")
+                ln = strip_prefix_once(ln, "* ")
+                item_text = ln.strip()
+                if not item_text:
+                    continue
+        
+                tn_list = text_to_textnodes(item_text)
+                inline_children = [text_node_to_html_node(tn) for tn in tn_list]
+                li_nodes.append(ParentNode("li", inline_children))
+            result.append(ParentNode("ul", li_nodes))  
 
         elif nodetype == BlockType.ORDERED_LIST:
 #implement
