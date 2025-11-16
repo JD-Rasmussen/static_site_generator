@@ -35,8 +35,10 @@ def markdown_to_html_node(markdown):
             result.append(blockquote_node)
 
         elif nodetype == BlockType.UNORDERED_LIST:
+#implement
 
         elif nodetype == BlockType.ORDERED_LIST:
+#implement
 
         elif nodetype == BlockType.PARAGRAPH:
             lines = part.splitlines()  
