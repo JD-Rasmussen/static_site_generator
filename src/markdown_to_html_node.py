@@ -1,9 +1,8 @@
-
-import src.extract_markdowns
-import src.htmlnode
-import src.htmlnode
-import src.split_nodes
-import src.textnode_to_htmlnode
+from src.markdown_blocks import markdown_to_blocks, block_to_block_type, BlockType
+from src.inline_markdown import text_to_textnodes
+from src.htmlnode import ParentNode
+from src.textnode import TextNode, TextType
+from src.inline_markdown import text_node_to_html_node
 
 def strip_prefix_once(s, prefix):
     return s[len(prefix):] if s.startswith(prefix) else s
@@ -16,7 +15,17 @@ def markdown_to_html_node(markdown):
         nodetype = block_to_block_type(part)
 
         if nodetype == BlockType.HEADING:
-        
+            first = part.splitlines()[0].lstrip()
+            level = 0
+            while level < len(first) and level < 6 and first[level] == '#':
+                level += 1
+            tag = f"h{level}"
+
+            text = first[level:].lstrip()
+            tn_list = text_to_textnodes(text)
+            inline_children = [text_node_to_html_node(tn) for tn in tn_list]
+            result.append(ParentNode(tag, inline_children))
+            
         elif nodetype == BlockType.QUOTE:
             lines = part.splitlines()  
             clean_lines = []
@@ -53,7 +62,29 @@ def markdown_to_html_node(markdown):
             result.append(ParentNode("ul", li_nodes))  
 
         elif nodetype == BlockType.ORDERED_LIST:
-#implement
+            li_nodes = []
+            for ln in part.splitlines():
+                ln = ln.rstrip()
+                if not ln.strip():
+                    continue
+                #detect N prefix
+                i = 0
+                while i < len(ln) and ln[i].isdigit():
+                    i += 1
+                if i > 0 and i +1 < len(ln) and ln[i] == '.' and ln[i+1] == ' ':
+                    prefix = ln[:i+2]
+                    ln = strip_prefix_once(ln, prefix)
+                
+                item_text = ln.strip()
+                if not item_text:
+                    continue
+                
+                tn_list = text_to_textnodes(item_text)
+                inline_children = [text_node_to_html_node(tn) for tn in tn_list]
+                li_nodes.append(ParentNode("li", inline_children))
+            result.append(ParentNode("ol", li_nodes))
+
+
 
         elif nodetype == BlockType.PARAGRAPH:
             lines = part.splitlines()  
