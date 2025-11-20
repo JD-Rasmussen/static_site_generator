@@ -34,4 +34,4 @@ def block_to_block_type(markdown):
     if all(l.lstrip().startswith(f"{i}. ") for i, l in enumerate(nonempty, start=1)):
         return BlockType.ORDERED_LIST
 
-    return BlockType.PARAGRAPH
+    return BlockType.PARAGRAPHSS
