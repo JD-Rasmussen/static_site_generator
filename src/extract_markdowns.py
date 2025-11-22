@@ -39,6 +39,21 @@ def markdown_to_blocks(md):
     return blocks
 
 
+def extract_title(markdown):
+    md = textwrap.dedent(markdown)
+    title = ""
+    for line in md.splitlines():
+        stripped = line.lstrip()
+        if stripped.startswith("# ") and not stripped.startswith("## "):
+            title = stripped[2:].strip()
+            break
+    if title == "":
+        raise Exception("no header found")
+    
+    return title
+            
+
+
 
 
 
