@@ -1,6 +1,6 @@
 import unittest
 
-from src.extract_markdowns import extract_markdown_images, extract_markdown_links, markdown_to_blocks
+from src.extract_markdowns import extract_markdown_images, extract_markdown_links, markdown_to_blocks, extract_title
 
 class TestSplit_node_delimiter(unittest.TestCase):
 
@@ -41,3 +41,26 @@ This is the same paragraph on a new line
                 "- This is a list\n- with items",
             ],
         )
+
+
+    def test_extract_title_ok(self):
+        text = "# Hello"
+        self.assertEqual("Hello", extract_title(text))
+
+    def test_extract_title_error(self):
+        text = "## Hello"
+        with self.assertRaises(Exception):
+            extract_title(text)
+
+    def test_extract_title_after_text(self):
+       text = "intro line\n# Hello\nmore"
+       self.assertEqual("Hello", extract_title(text))         
+
+    def test_extract_title_uses_first_h1(self):
+        text = "# First\n# Second"
+        self.assertEqual("First", extract_title(text))
+
+    def test_extract_title_only_h2(self):
+        text = "## Subheading\nMore text"
+        with self.assertRaises(Exception):
+            extract_title(text)
