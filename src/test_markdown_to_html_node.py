@@ -4,7 +4,7 @@
 
 import unittest
 
-from src.markdown_to_html_node import markdown_to_html_node, strip_prefix_once
+from markdown_to_html_node import markdown_to_html_node, strip_prefix_once
 
 class Test_Markdown_to_html_node(unittest.TestCase):
 

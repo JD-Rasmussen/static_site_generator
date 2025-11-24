@@ -1,7 +1,7 @@
 
 
-from src.textnode import TextNode, TextType
-from src.htmlnode import HTMLNode, LeafNode, ParentNode
+from textnode import TextNode, TextType
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 
 

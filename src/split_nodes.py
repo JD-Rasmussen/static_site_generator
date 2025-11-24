@@ -1,9 +1,9 @@
 
 
-from src.htmlnode import HTMLNode, LeafNode, ParentNode
-from src.textnode import TextNode, TextType
-from src.textnode_to_htmlnode import text_node_to_html_node
-from src.extract_markdowns import extract_markdown_images, extract_markdown_links
+from htmlnode import HTMLNode, LeafNode, ParentNode
+from textnode import TextNode, TextType
+from textnode_to_htmlnode import text_node_to_html_node
+from extract_markdowns import extract_markdown_images, extract_markdown_links
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):

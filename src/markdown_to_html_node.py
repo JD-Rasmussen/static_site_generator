@@ -1,9 +1,9 @@
-from src.extract_markdowns import markdown_to_blocks 
-from src.block_type import block_to_block_type, BlockType
-from src.split_nodes import text_to_textnodes
-from src.htmlnode import ParentNode
-from src.textnode import TextNode, TextType
-from src.textnode_to_htmlnode import text_node_to_html_node
+from extract_markdowns import markdown_to_blocks 
+from block_type import block_to_block_type, BlockType
+from split_nodes import text_to_textnodes
+from htmlnode import ParentNode
+from textnode import TextNode, TextType
+from textnode_to_htmlnode import text_node_to_html_node
 import textwrap
 
 def strip_prefix_once(s, prefix):
