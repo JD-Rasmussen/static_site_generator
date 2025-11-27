@@ -30,3 +30,25 @@ def generate_page(from_path, template_path, dest_path):
     # Write final HTML to file
     with open(dest_path, "w", encoding="utf-8") as f:
         f.write(final_html)
+
+
+
+def generate_pages_recursive(from_path, template_path, dest_path):
+
+    for root, _, files in os.walk(from_path):
+        for fname in files:
+            if not fname.lower().endswith(".md"):
+                continue
+
+            src_path = os.path.join(root, fname)
+            rel_path = os.path.relpath(src_path, from_path)            # e.g., "blog/post.md"
+            rel_no_ext, _ = os.path.splitext(rel_path)                # e.g., "blog/post"
+            dest_dir = os.path.join(dest_path, rel_no_ext + ".html")  # e.g., "public/blog/post.html"
+
+            # Ensure destination directory exists before writing
+            os.makedirs(os.path.dirname(dest_dir), exist_ok=True)
+
+            # Reuse your existing single-file generator
+            generate_page(src_path, template_path, dest_dir)
+
+

@@ -1,7 +1,7 @@
 
 from copystatic import copy_files_recursive
 from textnode import TextNode, TextType
-from generatepage import generate_page
+from generatepage import generate_page, generate_pages_recursive
 
 def main():
     node = TextNode(text='some anchor',text_type=TextType.LINK, url='http://localhost')
@@ -10,7 +10,7 @@ def main():
     
     copy_files_recursive("static/", "public/")
 
-    generate_page(from_path ="content/index.md" , dest_path = "public/index.html" , template_path = "template.html" )
+    generate_pages_recursive(from_path ="content/" , dest_path = "public/" , template_path = "template.html" )
 
 if __name__ == "__main__":
     main()
