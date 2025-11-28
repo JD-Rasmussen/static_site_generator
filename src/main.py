@@ -6,15 +6,23 @@ import sys
 
 def main():
 
- #   sys.argv()
-
-  #  node = TextNode(text='some anchor',text_type=TextType.LINK, url='http://localhost')
-  #  print(node)
+    basepath = sys.argv[1] if len(sys.argv) > 1 else "/"
 
     
-    copy_files_recursive("static/", "public/")
+    if not basepath.startswith("/"):
+        basepath = "/" + basepath
+    if not basepath.endswith("/"):
+        basepath = basepath + "/"
 
-    generate_pages_recursive(from_path ="content" , template_path = "template.html", dest_path = "public" )
+
+    
+    copy_files_recursive("static/", "docs/")
+
+    generate_pages_recursive(
+        from_path ="content" , 
+        template_path = "template.html", 
+        dest_path = "docs" , 
+        basepath=basepath )
 
 if __name__ == "__main__":
     main()
